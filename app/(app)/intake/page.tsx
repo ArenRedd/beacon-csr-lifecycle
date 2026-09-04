@@ -113,15 +113,32 @@ export default function Intake() {
                         <span className="text-[var(--fg-dim)]">{f.label}</span>
                         <div className="flex items-center gap-2">
                           <span className="font-medium">{f.value}</span>
-                          <span
-                            className={cn(
-                              "tabular-nums",
-                              f.confidence >= 0.9
-                                ? "text-[var(--green)]"
-                                : "text-[var(--amber)]"
-                            )}
-                          >
-                            {Math.round(f.confidence * 100)}%
+                          <span className="flex items-center gap-1.5">
+                            <span className="h-1.5 w-14 overflow-hidden rounded-full bg-white/[0.08]">
+                              <span
+                                className={cn(
+                                  "block h-full rounded-full",
+                                  f.confidence >= 0.9
+                                    ? "bg-[var(--green)]"
+                                    : f.confidence >= 0.75
+                                      ? "bg-[var(--amber)]"
+                                      : "bg-[var(--red)]"
+                                )}
+                                style={{ width: `${Math.round(f.confidence * 100)}%` }}
+                              />
+                            </span>
+                            <span
+                              className={cn(
+                                "tabular-nums",
+                                f.confidence >= 0.9
+                                  ? "text-[var(--green)]"
+                                  : f.confidence >= 0.75
+                                    ? "text-[var(--amber)]"
+                                    : "text-[var(--red)]"
+                              )}
+                            >
+                              {Math.round(f.confidence * 100)}%
+                            </span>
                           </span>
                         </div>
                       </div>
